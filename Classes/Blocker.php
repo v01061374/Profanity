@@ -96,12 +96,11 @@ class Blocker
     public function badWords()
     {
         return collect($this->dictionary)->filter(function ($value) {
-            return is_numeric(mb_stripos($this->text, $value['word']));
+            return str_contains($this->text, $value['word']);
         })->map(function ($value) {
             return [
                 'language' => $value['language'],
                 'word'     => $value['word'],
-                'level'    => $value['level'] ?? 'default'
             ];
         })->toArray();
     }
